@@ -1,0 +1,29 @@
+# Default parameters for map_to_gazebo
+
+map_to_gazebo:
+  ros__parameters:
+    # Topic that the map to convert is being published on
+    map_topic: "/map"
+    # Minimum threshold value for considering a map cell occupied
+    occupied_thresh: 1
+    # Height of boxes in the gazebo environment
+    box_height: 2.0
+
+    # Whether to wipe every existing gazebo entity (except entities_to_keep)
+    # and spawn the freshly-exported model.sdf via the /get_model_list,
+    # /delete_entity and /spawn_entity services right after export. Set to
+    # false to only export the mesh/sdf files without touching gazebo.
+    spawn_in_gazebo: true
+    # Gazebo entity names that must survive the wipe-before-respawn sweep.
+    # Always include the floor, and whatever the robot entity is named -
+    # defaults match this workspace's turtlebot3 burger setup, update to
+    # match your robot's spawned entity name.
+    entities_to_keep: ["ground_plane", "burger"]
+    # How long/often to poll /get_model_list to confirm a delete or spawn
+    # actually landed in the world before trusting it and moving on - the
+    # service call's success=True only means Gazebo accepted the request,
+    # not that the model list has caught up yet.
+    respawn_poll_interval_sec: 0.25
+    respawn_poll_timeout_sec: 5.0
+
+    #export_dir:
